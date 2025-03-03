@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		88F5E6F82D75DC40003424B5 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 88F5E6F72D75DC40003424B5 /* SDWebImage */; };
+		88F5E6FA2D75DC40003424B5 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 88F5E6F92D75DC40003424B5 /* SDWebImageMapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		8886923D2D7364B7001582F7 /* Alpflix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alpflix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88F5E6FA2D75DC40003424B5 /* SDWebImageMapKit in Frameworks */,
+				88F5E6F82D75DC40003424B5 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = Alpflix;
 			packageProductDependencies = (
+				88F5E6F72D75DC40003424B5 /* SDWebImage */,
+				88F5E6F92D75DC40003424B5 /* SDWebImageMapKit */,
 			);
 			productName = Alpflix;
 			productReference = 8886923D2D7364B7001582F7 /* Alpflix.app */;
@@ -107,6 +116,9 @@
 			);
 			mainGroup = 888692342D7364B7001582F7;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				88F5E6F62D75DC40003424B5 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8886923E2D7364B7001582F7 /* Products */;
 			projectDirPath = "";
@@ -333,6 +345,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		88F5E6F62D75DC40003424B5 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.21.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		88F5E6F72D75DC40003424B5 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88F5E6F62D75DC40003424B5 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		88F5E6F92D75DC40003424B5 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88F5E6F62D75DC40003424B5 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 888692352D7364B7001582F7 /* Project object */;
 }
