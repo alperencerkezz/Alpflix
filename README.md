@@ -77,7 +77,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [YouTube Data API](https://developers.google.com/youtube/v3) for trailer integration
 
 - <p align="center">
-  <img src="https://github.com/alperencerkezz/Alpflix/blob/4a4e894ca2e774fb7653cc51a2e7fcdbaf65ec60/1.png" width="300">
-  <img src="https://github.com/alperencerkezz/Alpflix/blob/4a4e894ca2e774fb7653cc51a2e7fcdbaf65ec60/2.png" width="300">
-  <img src="https://github.com/alperencerkezz/Alpflix/blob/4a4e894ca2e774fb7653cc51a2e7fcdbaf65ec60/3.png" width="300">
+  <img src="https://github.com/alperencerkezz/Alpflix/blob/4a4e894ca2e774fb7653cc51a2e7fcdbaf65ec60/1.png" width="500">
+  <img src="https://github.com/alperencerkezz/Alpflix/blob/4a4e894ca2e774fb7653cc51a2e7fcdbaf65ec60/2.png" width="500">
+  <img src="https://github.com/alperencerkezz/Alpflix/blob/4a4e894ca2e774fb7653cc51a2e7fcdbaf65ec60/3.png" width="500">
 </p>
