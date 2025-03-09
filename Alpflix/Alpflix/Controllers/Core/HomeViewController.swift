@@ -60,7 +60,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     private func configureNavBar() {
         var image = UIImage(named: "alpflixLogo")
         image = image?.withRenderingMode(.alwaysOriginal)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
+        let logoButton = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
+        logoButton.imageInsets = UIEdgeInsets(top: 0, left: -100, bottom: 0, right: 0)  // Adjust left spacing
+        navigationItem.leftBarButtonItem = logoButton
         
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
