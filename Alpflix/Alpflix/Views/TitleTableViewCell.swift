@@ -35,11 +35,18 @@ class TitleTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    private var title: Title?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(titlesPosterUIImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(playTitleButton)
+        
+        // Add context menu interaction
+        contentView.isUserInteractionEnabled = true
+        let interaction = UIContextMenuInteraction(delegate: self)
+        contentView.addInteraction(interaction)
         
         applyConstraints()
     }
@@ -76,6 +83,7 @@ class TitleTableViewCell: UITableViewCell {
         
         titlesPosterUIImageView.sd_setImage(with: url, completed: nil)
         titleLabel.text = model.titleName
+        self.title = model.title
     }
     
     
@@ -83,4 +91,70 @@ class TitleTableViewCell: UITableViewCell {
         fatalError()
     }
 
+    private func downloadTitleAt() {
+        guard let title = self.title else { return }
+        
+        // Add visual feedback
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        
+        DataPersistenceManager.shared.downloadTitleWith(model: title) { [weak self] result in
+            switch result {
+            case .success():
+                // Show success message
+                NotificationCenter.default.post(name: NSNotification.Name("downloaded"), object: nil)
+                self?.showDownloadMessage("Download Started", backgroundColor: .systemGreen)
+            case .failure(let error):
+                // Show error message
+                self?.showDownloadMessage("Download Failed", backgroundColor: .systemRed)
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func showDownloadMessage(_ message: String, backgroundColor: UIColor) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let downloadStartedLabel = UILabel()
+            downloadStartedLabel.text = message
+            downloadStartedLabel.textAlignment = .center
+            downloadStartedLabel.backgroundColor = backgroundColor
+            downloadStartedLabel.textColor = .white
+            downloadStartedLabel.alpha = 0
+            downloadStartedLabel.frame = CGRect(x: 0, y: self.contentView.bounds.height - 30, width: self.contentView.bounds.width, height: 30)
+            self.contentView.addSubview(downloadStartedLabel)
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                downloadStartedLabel.alpha = 1
+            }) { _ in
+                UIView.animate(withDuration: 0.3, delay: 1.0, options: [], animations: {
+                    downloadStartedLabel.alpha = 0
+                }) { _ in
+                    downloadStartedLabel.removeFromSuperview()
+                }
+            }
+        }
+    }
+}
+
+extension TitleTableViewCell: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        guard let title = self.title else { return nil }
+        
+        return UIContextMenuConfiguration(
+            identifier: nil,
+            previewProvider: nil
+        ) { _ in
+            let downloadAction = UIAction(
+                title: "Download",
+                image: UIImage(systemName: "arrow.down.circle"),
+                handler: { [weak self] _ in
+                    self?.downloadTitleAt()
+                }
+            )
+            
+            return UIMenu(title: "", children: [downloadAction])
+        }
+    }
 }

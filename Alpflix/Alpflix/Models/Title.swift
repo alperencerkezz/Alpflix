@@ -23,6 +23,23 @@ struct Title: Codable {
     let vote_average: Double
 }
 
+// Helper extension to convert between Title and TitleItem
+extension Title {
+    static func fromTitleItem(_ item: TitleItem) -> Title {
+        return Title(
+            id: Int(item.id),
+            media_type: item.media_type,
+            original_name: item.original_name,
+            original_title: item.original_title,
+            poster_path: item.poster_path,
+            overview: item.overview,
+            vote_count: Int(item.vote_count),
+            release_date: item.release_date,
+            vote_average: item.vote_average
+        )
+    }
+}
+
 /*
  adult = 0;
  "backdrop_path" = "/sc1abgWNXc29wSBaerrjGBih06l.jpg";

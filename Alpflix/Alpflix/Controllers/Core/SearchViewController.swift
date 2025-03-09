@@ -81,7 +81,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         let title = titles[indexPath.row]
-        let model = TitleViewModel(titleName: title.original_name ?? title.original_title ?? "Unknown name", posterURL: title.poster_path ?? "")
+        let model = TitleViewModel(titleName: title.original_name ?? title.original_title ?? "Unknown name", posterURL: title.poster_path ?? "", title: title)
         cell.configure(with: model)
         
         return cell;
@@ -92,7 +92,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension SearchViewController: UISearchResultsUpdating {
+extension SearchViewController: UISearchResultsUpdating, SearchResultsViewControllerDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
@@ -103,6 +103,7 @@ extension SearchViewController: UISearchResultsUpdating {
               let resultsController = searchController.searchResultsController as? SearchResultsViewController else {
             return
         }
+        resultsController.delegate = self
         
         APICaller.shared.search(with: query) { result in
             DispatchQueue.main.async {
@@ -115,5 +116,16 @@ extension SearchViewController: UISearchResultsUpdating {
                 }
             }
         }
+    }
+    
+    func searchResultsViewControllerDidTapItem(_ viewModel: TitlePreviewViewModel) {
+        
+        DispatchQueue.main.async { [weak self] in
+            let vc = TitlePreviewViewController()
+            vc.configure(with: viewModel)
+            
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
 }
